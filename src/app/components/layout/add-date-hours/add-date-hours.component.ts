@@ -10,7 +10,6 @@ import { NbToastrService } from '@nebular/theme';
   styleUrls: ['./add-date-hours.component.css']
 })
 export class AddDateHoursComponent implements OnInit {
-  private index: number = 0;
   allColumns = ['Fecha', 'Hora'];
   activity: any = {};
   activityId = '';
@@ -34,7 +33,6 @@ export class AddDateHoursComponent implements OnInit {
 
   getData() {
     this.activityService.getIdActivity(this.activityId).subscribe(result => {
-      console.log('result activity', result);
       let count = 0
       this.data = new Array
       this.hours = new Array

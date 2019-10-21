@@ -35,7 +35,6 @@ export class ActivitiesComponent implements OnInit {
   addAcitivity() {
     this.data.push({ data: this.activity.name })
     this.activityService.saveAcitivity(this.activity).subscribe(result => {
-      console.log('result save', result)
       if (result.data) {
         this.activity = {};
         this.getData();
