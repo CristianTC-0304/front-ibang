@@ -1,0 +1,61 @@
+<nb-layout>
+    <nb-layout-column>
+        <nb-card>
+            <nb-card-header>
+                <nav class="navigation">
+                    <h1>Horas</h1>
+                </nav>
+            </nb-card-header>
+            <nb-card-body>
+                <form (ngSubmit)="addAcitivity()" #form="ngForm" aria-labelledby="title">
+                    <div class="form-control-group">
+                        <div class="row show-grid mx-auto">
+                            <div class="col-md-auto mx-auto">
+                                <h5>Fecha</h5>
+                            </div>
+                            <div class="col-sm-4 mx-auto">
+                                <input nbInput fullWidth [(ngModel)]="activity.date" #date="ngModel" name="date"
+                                    id="input-date" shape="rectangle" placeholder="Selecciona la fecha" required
+                                    [nbDatepicker]="formpicker">
+                                <nb-datepicker #formpicker></nb-datepicker>
+                            </div>
+                            <div class="col-md-auto">
+                                <h5>Horas</h5>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" nbInput fullWidth [(ngModel)]="activity.hours" #hours="ngModel"
+                                    name="hours" id="input-hours" shape="rectangle" required
+                                    placeholder="Hora de la actividad">
+                            </div>
+                            <div class="col-sm-2">
+                                <button nbButton outline size="small" [disabled]="!form.valid"
+                                    [class.btn-pulse]="submitted" status="primary">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <div class="row show-grid mx-auto">
+                    <div class="col-md-12">
+                        <table [nbTreeGrid]="data" equalColumnsWidth>
+
+                            <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+                            <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+
+                            <ng-container nbTreeGridColumnDef="Fecha" [hideOn]="200">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Fecha</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.date}}</td>
+                            </ng-container>
+
+                            <ng-container nbTreeGridColumnDef="Hora" [hideOn]="200">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Hora</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.hour}}</td>
+                            </ng-container>
+
+                        </table>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </nb-layout-column>
+</nb-layout>

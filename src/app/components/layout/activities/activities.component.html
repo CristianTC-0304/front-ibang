@@ -1,0 +1,56 @@
+<nb-layout>
+    <nb-layout-column>
+        <nb-card>
+            <nb-card-header>
+                <nav class="navigation">
+                    <h1>Acitividades</h1>
+                </nav>
+            </nb-card-header>
+            <nb-card-body>
+                <form (ngSubmit)="addAcitivity()" #form="ngForm" aria-labelledby="title">
+                    <div class="row show-grid mx-auto">
+                        <div class="col-md-auto">
+                            <h5>Descripción</h5>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" nbInput fullWidth [(ngModel)]="activity.name" #name="ngModel" name="name"
+                                id="input-name" shape="rectangle" placeholder="Descripción de actividad">
+                        </div>
+                        <div class="col-sm-2">
+                            <button nbButton outline size="small" [disabled]="!form.valid" [class.btn-pulse]="submitted"
+                                status="primary">Crear actividad</button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <div class="row show-grid mx-auto">
+                    <div class="col-md-12">
+                        <table [nbTreeGrid]="data" equalColumnsWidth>
+
+                            <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+                            <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+
+                            <ng-container nbTreeGridColumnDef="Actividad" [hideOn]="200">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Actividad</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data.name}}</td>
+                            </ng-container>
+
+                            <ng-container nbTreeGridColumnDef="Acciones" [hideOn]="200">
+                                <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Acciones</th>
+                                <td nbTreeGridCell *nbTreeGridCellDef="let row">
+                                    <button nbButton outline size="small" status="info"
+                                        [routerLink]="['/addDateHours/', row.data._id]">Agregar
+                                        Horas</button>
+                                </td>
+                            </ng-container>
+
+                        </table>
+                    </div>
+                </div>
+                <nb-auth-block>
+
+                </nb-auth-block>
+            </nb-card-body>
+        </nb-card>
+    </nb-layout-column>
+</nb-layout>

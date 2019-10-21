@@ -1,0 +1,56 @@
+<h1 id="title" class="title">Iniciar Sesión</h1>
+<p class="sub-title">Hola! Inicia sesión con tu correo electrónico</p>
+
+<nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
+    <p class="alert-title"><b>Lo siento 🙁!</b></p>
+    <ul class="alert-message-list">
+        <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    </ul>
+</nb-alert>
+
+<nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
+    <p class="alert-title"><b>Bien 😀!</b></p>
+    <ul class="alert-message-list">
+        <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+    </ul>
+</nb-alert>
+
+<form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title">
+
+    <div class="form-control-group">
+        <label class="label" for="input-email">Dirección de correo electrónico:</label>
+        <input nbInput fullWidth [(ngModel)]="user.email" #email="ngModel" name="email" id="input-email"
+            pattern=".+@.+\..+" placeholder="Email" autofocus
+            [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
+            [attr.aria-invalid]="email.invalid && email.touched ? true : null" required>
+        <ng-container *ngIf="email.invalid && email.touched">
+            <p class="error-message" *ngIf="email.errors?.required">
+                El email es obligatorio!
+            </p>
+            <p class="error-message" *ngIf="email.errors?.pattern">
+                El correo electrónico debe ser existente!
+            </p>
+        </ng-container>
+    </div>
+
+    <div class="form-control-group">
+        <label class="label" for="input-password">Contraseña:</label>
+        <input nbInput fullWidth [(ngModel)]="user.password" #password="ngModel" name="password" type="password"
+            id="input-password" placeholder="Contraseña"
+            [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''" minlength="3" maxlength="20"
+            [attr.aria-invalid]="password.invalid && password.touched ? true : null" required>
+        <ng-container *ngIf="password.invalid && password.touched ">
+            <p class="error-message" *ngIf="password.errors?.required">
+                La contraseña es obligatoria!
+            </p>
+        </ng-container>
+    </div>
+
+    <button nbButton fullWidth status="success" [disabled]="!form.valid" [class.btn-pulse]="submitted">
+        Iniciar Sesión
+    </button>
+</form>
+
+<section class="another-action" aria-label="Register">
+    No tienes una cuenta? <a class="text-link" routerLink="./register">Regístrate</a>
+</section>
